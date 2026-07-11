@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Alerts</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .container{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .box1{
+            border-radius: 100px 15px 100px 15px;
+            background-color: rgb(127, 161, 255);
+            width:350px;
+            max-width:90%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            
+        }
+        .submit{
+            border-radius: 10px;
+            background-color: rgb(166, 246, 134);
+            padding: 5px;
+            font-weight: bold;
+            color:blue;
+        }
+        .clear{
+            border-radius: 15px;
+            background-color: rgb(236, 39, 39);
+            padding: 10px;
+            font-weight: bold;
+            color:blue;
+        }
+        .text{
+            height: 25px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box1">
+            <input type="text" class="text" placeholder="Enter the app name that you want to open">
+            <input type="text" class="text" placeholder="Enter the link of the app">
+            <button class="submit">Submit</button>
+            <button class="clear">Clear</button>
+        </div>
+    </div>
+    <script>
+        let bookmarkHTML;
+        document.getElementsByClassName("submit")[0].addEventListener("click",()=>{
+            let name=document.getElementsByClassName("text")[0].value
+            let link=document.getElementsByClassName("text")[1].value
+            if(name==="" || link===""){
+                alert("Please fill all fields");
+                return;
+            }
+            if(!link.startsWith("https://")){
+                link="https://"+link;
+            }
+            div=`<a href="${link}" target="_blank">${name}</a>`
+            document.getElementsByClassName("box1")[0].insertAdjacentHTML("beforeend", div);
+            document.getElementsByClassName("text")[0].value = "";
+            document.getElementsByClassName("text")[1].value = "";
+        })
+        document.querySelector(".clear").addEventListener("click", () => {
+            document.querySelectorAll("a").forEach(link => {
+                link.remove();
+            });
+        });
+    </script>
+</body>
+</html>
